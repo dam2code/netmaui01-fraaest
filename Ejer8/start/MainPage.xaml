@@ -20,7 +20,7 @@
             <BoxView BackgroundColor="Black" HeightRequest="4" Margin="2,10" />
             <Grid Grid.Row="2" RowDefinitions="Auto, Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, Auto" Margin="0,5,0,0">
                 <Label Grid.Row="0" Grid.Column="0" Text="Condition" VerticalOptions="Center" />
-                <Image Grid.Row="0" Grid.Column="1" HeightRequest="25" WidthRequest="25" Source="question.png" HorizontalOptions="Start" />
+                <Image Grid.Row="0" Grid.Column="1" HeightRequest="25" WidthRequest="25" Source="{Binding Condition, Converter={StaticResource WeatherConditionToImageConverter}}" HorizontalOptions="Start" />
                 <Label Grid.Row="1" Grid.Column="0" Text="Temperature" Margin="0,0,20,0" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding Temperature}" />
                 <Label Grid.Row="2" Grid.Column="0" Text="Humidity" Margin="0,0,20,0" />
@@ -32,5 +32,4 @@
             </Grid>
         </VerticalStackLayout>
     </Grid>
-
 </ContentPage>

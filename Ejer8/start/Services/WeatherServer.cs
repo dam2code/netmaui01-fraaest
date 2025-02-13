@@ -1,27 +1,22 @@
-﻿using WeatherClient.Models;
+﻿using System.Globalization;
+using WeatherClient.Models;
 
-namespace WeatherClient.Services;
+namespace WeatherClient.Converters;
 
-internal static class WeatherServer
+internal class WeatherConditionToImageConverter : IValueConverter
 {
-    public static async Task<WeatherData> GetWeather(string postalCode)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        // Random generate an enum value
-        int totalWeatherTypes = Enum.GetNames<WeatherType>().Length;
+        WeatherType weatherCondition = (WeatherType)value!;
 
-        // Delay 2 seconds to simulate talking to a remote server
-        await Task.Delay(TimeSpan.FromSeconds(2));
-
-        WeatherData data = new()
+        return weatherCondition switch
         {
-            Temperature = Random.Shared.Next(30, 99),
-            Condition = (WeatherType)Random.Shared.Next(0, totalWeatherTypes),
-            Humidity = Random.Shared.Next(0, 101),
-            Precipitation = Random.Shared.Next(0, 101),
-            Wind = Random.Shared.Next(0, 30)
+            Models.WeatherType.Sunny => ImageSource.FromFile("sunny.png"),
+            Models.WeatherType.Cloudy => ImageSource.FromFile("cloud.png"),
+            _ => ImageSource.FromFile("question.png")
         };
-
-        // Return the weather type
-        return data;
     }
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotImplementedException();
 }
